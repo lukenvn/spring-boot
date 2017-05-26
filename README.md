@@ -1,2 +1,2 @@
 # spring-boot 
-These are some project templates using SpringBoot framework
+These are some project templates using SpringBoot framework.
