@@ -1,2 +1,2 @@
-# spring-boot
-This is a template cronjobs project using SpringBoot framework
+# spring-boot 
+These are some project templates using SpringBoot framework
