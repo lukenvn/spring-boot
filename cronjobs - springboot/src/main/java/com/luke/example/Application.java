@@ -1,7 +1,7 @@
-package com.example;
+package com.luke.example;
 
-import com.example.config.Properties;
-import com.example.task.CheckTimeTask;
+import com.luke.example.config.Properties;
+import com.luke.example.task.CheckTimeTask;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
