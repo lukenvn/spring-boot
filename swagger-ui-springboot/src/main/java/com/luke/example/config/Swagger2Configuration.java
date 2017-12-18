@@ -1,4 +1,4 @@
-package com.luke.study.config;
+package com.luke.example.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

@@ -1,4 +1,4 @@
-package com.luke.study.config;
+package com.luke.example.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

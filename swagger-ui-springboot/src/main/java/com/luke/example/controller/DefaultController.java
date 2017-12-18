@@ -1,6 +1,6 @@
-package com.luke.study.controller;
+package com.luke.example.controller;
 
-import com.luke.study.config.SwaggerProperty;
+import com.luke.example.config.SwaggerProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
