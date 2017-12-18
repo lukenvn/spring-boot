@@ -1,0 +1,19 @@
+swagger:
+  configuration:
+    test: test text
+    properties:
+        name: Pet Service
+        url: http://petstore.swagger.io/v2/swagger.json
+        version: 2.0
+
+        name: Human Service
+        url: http://petstore.swagger.io/v2/swagger.json
+        version: 2.0
+
+        name: Zoo Service
+        url: http://petstore.swagger.io/v2/swagger.json
+        version: 2.0
+
+        name: Food Service
+        url: http://petstore.swagger.io/v2/swagger.json
+        version: 2.0
