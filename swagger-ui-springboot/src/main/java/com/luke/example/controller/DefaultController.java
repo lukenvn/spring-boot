@@ -25,20 +25,5 @@ public class DefaultController {
     public String index(){
         return "redirect:/index.html";
     }
-    @RequestMapping(value = "/links",method = RequestMethod.GET)
-    public String getAllApiDocLink(){
-        return String.join("\n",findAllFileNameInFolder(ApiDocController.SRC_MAIN_RESOURCES+"\\api-docs"));
-    }
 
-
-    private List<String> findAllFileNameInFolder(String folderPath){
-        try {
-            try (Stream<Path> paths = Files.walk(Paths.get(folderPath))) {
-                return paths.filter(Files::isRegularFile).map(file->file.getFileName().toString()).collect(Collectors.toList());
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 }

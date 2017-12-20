@@ -69,52 +69,7 @@
 
 <script src="./swagger-ui-bundle.js"> </script>
 <script src="./swagger-ui-standalone-preset.js"> </script>
-<script>
-window.onload = function() {
-  var apis = [
-    {
-      "name": "LoanOrderInterface",
-      "url": "/api-doc/LoanOrderInterfaceV1.json",
-      "version": 1.0
-    },
-    {
-      "name": "RealEstateInterface",
-      "url": "/api-doc/RealEstateInterfaceV1.0.json",
-      "version": 1.0
-    },
-    {
-      "name": "LoanAdvisoryInterface",
-      "url": "/api-doc/LoanAdvisoryInterfaceV1.0.1.json",
-      "version": "1.0.1"
-    },
-    {
-      "name": "Client onboarding",
-      "url": "/api-doc/ClientOnboardingInterfaceV7.json",
-      "version": 7.0
-    },
-    {
-      "name": "fil-bsa-axon-loan-advisory",
-      "url": "/api-doc/fil-bsa-axon-loan-advisory-0.0.8.yaml",
-      "version": "0.0.8"
-    }
-  ];
-
-  // Build a system
-  const ui = SwaggerUIBundle({
-    urls: apis,
-    dom_id: '#swagger-ui',
-    deepLinking: true,
-    presets: [
-      SwaggerUIBundle.presets.apis,
-      SwaggerUIStandalonePreset
-    ],
-    plugins: [
-      SwaggerUIBundle.plugins.DownloadUrl
-    ],
-    layout: "StandaloneLayout"
-  })
-  window.ui = ui
-}
+<script src="./swagger-index.js">
 </script>
 </body>
 

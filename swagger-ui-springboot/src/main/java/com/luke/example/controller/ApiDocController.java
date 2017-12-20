@@ -6,8 +6,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by nvnhung on 12/19/2017.
@@ -17,6 +20,23 @@ import java.util.List;
 public class ApiDocController {
 
     public static final String SRC_MAIN_RESOURCES = "src\\main\\resources\\";
+
+    @RequestMapping(value = "/links",method = RequestMethod.GET)
+    public String getAllApiDocLink(){
+        return String.join(",",findAllFileNameInFolder("api-docs"));
+    }
+
+
+    private List<String> findAllFileNameInFolder(String folderPath){
+        try {
+            try (Stream<Path> paths = Files.walk(Paths.get("src/main/resources/api-docs"))) {
+                return paths.filter(Files::isRegularFile).map(file->file.getFileName().toString()).collect(Collectors.toList());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 //
 //    @RequestMapping(value = "/ClientOnboardingInterfaceV7.json",produces = "application/json",method = RequestMethod.GET)
 //    public String getClientOnboardingInterface() throws IOException {
