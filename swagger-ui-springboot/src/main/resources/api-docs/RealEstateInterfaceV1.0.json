@@ -1,0 +1,1740 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Delivers various data of the Real Estate module",
+    "version" : "1.0.0",
+    "title" : "RealEstate Interface",
+    "contact" : {
+      "name" : "middleware-communication@finnova.ch",
+      "email" : "middleware-communication@finnova.ch"
+    }
+  },
+  "host" : "0.0.0.0:55023",
+  "tags" : [ {
+    "name" : "v1/banks/{number}",
+    "description" : "Defines banks"
+  } ],
+  "schemes" : [ "http" ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "paths" : {
+    "/v1/banks/{number}" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Method not allowed"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route1"
+      }
+    },
+    "/v1/banks/{number}/codes" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTablesResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table list for the given tenant"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route9"
+      }
+    },
+    "/v1/banks/{number}/codes/BuildingResidenceTypes" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route24"
+      }
+    },
+    "/v1/banks/{number}/codes/BuildingResidenceTypes/{code}" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "code",
+          "in" : "path",
+          "description" : "The code (identification) of the code table entry/item",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id and code"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route25"
+      }
+    },
+    "/v1/banks/{number}/codes/BuildingTypes" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route20"
+      }
+    },
+    "/v1/banks/{number}/codes/BuildingTypes/{code}" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "code",
+          "in" : "path",
+          "description" : "The code (identification) of the code table entry/item",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id and code"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route21"
+      }
+    },
+    "/v1/banks/{number}/codes/BusinessCases" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route26"
+      }
+    },
+    "/v1/banks/{number}/codes/BusinessCases/{code}" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "code",
+          "in" : "path",
+          "description" : "The code (identification) of the code table entry/item",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id and code"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route27"
+      }
+    },
+    "/v1/banks/{number}/codes/Countries" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route10"
+      }
+    },
+    "/v1/banks/{number}/codes/Countries/{code}" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "code",
+          "in" : "path",
+          "description" : "The code (identification) of the code table entry/item",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id and code"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route11"
+      }
+    },
+    "/v1/banks/{number}/codes/Currencies" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route12"
+      }
+    },
+    "/v1/banks/{number}/codes/Currencies/{code}" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "code",
+          "in" : "path",
+          "description" : "The code (identification) of the code table entry/item",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id and code"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route13"
+      }
+    },
+    "/v1/banks/{number}/codes/LoanRequestReasons" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route28"
+      }
+    },
+    "/v1/banks/{number}/codes/LoanRequestReasons/{code}" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "code",
+          "in" : "path",
+          "description" : "The code (identification) of the code table entry/item",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id and code"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route29"
+      }
+    },
+    "/v1/banks/{number}/codes/OwnershipRelationships" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route16"
+      }
+    },
+    "/v1/banks/{number}/codes/OwnershipRelationships/{code}" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "code",
+          "in" : "path",
+          "description" : "The code (identification) of the code table entry/item",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id and code"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route17"
+      }
+    },
+    "/v1/banks/{number}/codes/PropertyTypes" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route14"
+      }
+    },
+    "/v1/banks/{number}/codes/PropertyTypes/{code}" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "code",
+          "in" : "path",
+          "description" : "The code (identification) of the code table entry/item",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id and code"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route15"
+      }
+    },
+    "/v1/banks/{number}/codes/PropertyTypesOfUse" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route18"
+      }
+    },
+    "/v1/banks/{number}/codes/PropertyTypesOfUse/{code}" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "code",
+          "in" : "path",
+          "description" : "The code (identification) of the code table entry/item",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id and code"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route19"
+      }
+    },
+    "/v1/banks/{number}/codes/SecurityTypes" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route30"
+      }
+    },
+    "/v1/banks/{number}/codes/SecurityTypes/{code}" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "code",
+          "in" : "path",
+          "description" : "The code (identification) of the code table entry/item",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id and code"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route31"
+      }
+    },
+    "/v1/banks/{number}/codes/TypesOfConstruction" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route22"
+      }
+    },
+    "/v1/banks/{number}/codes/TypesOfConstruction/{code}" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "code",
+          "in" : "path",
+          "description" : "The code (identification) of the code table entry/item",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id and code"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route23"
+      }
+    },
+    "/v1/banks/{number}/properties" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "summary" : "Delivers an overview of all properties of a client",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "clientKey",
+          "in" : "query",
+          "description" : "Technical sequence number of the client (KD_STAMM.KD_LNR)",
+          "required" : true,
+          "type" : "String"
+        }, {
+          "name" : "number",
+          "in" : "path",
+          "description" : "",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "$ref" : "#/definitions/PropertySummary"
+            }
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route2"
+      }
+    },
+    "/v1/banks/{number}/properties/{propertyKey}" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "summary" : "Delivers details about a property",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "propertyKey",
+          "in" : "path",
+          "description" : "Technical sequence number of the property (GR_STAMM.GR_LNR)",
+          "required" : true,
+          "type" : "String"
+        }, {
+          "name" : "projection",
+          "in" : "query",
+          "description" : "Projection (small, large)",
+          "required" : true,
+          "type" : "String"
+        }, {
+          "name" : "number",
+          "in" : "path",
+          "description" : "",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "$ref" : "#/definitions/Property"
+            }
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route3"
+      }
+    },
+    "/v1/banks/{number}/properties/{propertyKey}/appraisals" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "summary" : "Delivers all internal appraisals of a property",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "propertyKey",
+          "in" : "path",
+          "description" : "Technical sequence number of the property (GR_STAMM.GR_LNR)",
+          "required" : true,
+          "type" : "String"
+        }, {
+          "name" : "number",
+          "in" : "path",
+          "description" : "",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "$ref" : "#/definitions/AppraisalSummary"
+            }
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route7"
+      }
+    },
+    "/v1/banks/{number}/properties/{propertyKey}/appraisals/{appraisalKey}" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "summary" : "Delivers an internal appraisal of a property",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "propertyKey",
+          "in" : "path",
+          "description" : "Technical sequence number of the property (GR_STAMM.GR_LNR)",
+          "required" : true,
+          "type" : "String"
+        }, {
+          "name" : "appraisalKey",
+          "in" : "path",
+          "description" : "Technical sequence number of the appraisal (GR_STZ.GR_STZ_LNR)",
+          "required" : true,
+          "type" : "String"
+        }, {
+          "name" : "number",
+          "in" : "path",
+          "description" : "",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "$ref" : "#/definitions/Appraisal"
+            }
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route8"
+      }
+    },
+    "/v1/banks/{number}/properties/{propertyKey}/landRegisterDescriptions" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "summary" : "Delivers all land register descriptions of a property",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "propertyKey",
+          "in" : "path",
+          "description" : "Technical sequence number of the property (GR_STAMM.GR_LNR)",
+          "required" : true,
+          "type" : "String"
+        }, {
+          "name" : "number",
+          "in" : "path",
+          "description" : "",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/LandRegisterDescription"
+              }
+            }
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route6"
+      }
+    },
+    "/v1/banks/{number}/properties/{propertyKey}/mortgageCertificates" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "summary" : "Delivers an overview of all mortgage certificates of a property",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "propertyKey",
+          "in" : "path",
+          "description" : "Technical sequence number of the property (GR_STAMM.GR_LNR)",
+          "required" : true,
+          "type" : "String"
+        }, {
+          "name" : "number",
+          "in" : "path",
+          "description" : "",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "$ref" : "#/definitions/MortgageCertificateSummary"
+            }
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route5"
+      }
+    },
+    "/v1/banks/{number}/properties/{propertyKey}/orders" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "v1/banks/{number}" ],
+        "summary" : "Delivers a list of loan orders using this property",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "propertyKey",
+          "in" : "path",
+          "description" : "Technical sequence number of the property (GR_STAMM.GR_LNR)",
+          "required" : true,
+          "type" : "String"
+        }, {
+          "name" : "number",
+          "in" : "path",
+          "description" : "",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Output type",
+            "schema" : {
+              "$ref" : "#/definitions/OrderSummary"
+            }
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route4"
+      }
+    }
+  },
+  "definitions" : {
+    "CodeTablesResponse" : {
+      "type" : "object",
+      "properties" : {
+        "codes" : {
+          "type" : "array",
+          "description" : "List of all code tables for the given tenant",
+          "readOnly" : true,
+          "items" : {
+            "$ref" : "#/definitions/CodeTableDescription"
+          }
+        },
+        "_links" : {
+          "description" : "HAL _links",
+          "readOnly" : true,
+          "$ref" : "#/definitions/Curies"
+        }
+      },
+      "description" : "Response object for a code tables request",
+      "x-className" : {
+        "type" : "string",
+        "format" : "integrationService.codeTableAccessHal.v1.CodeTablesResponse"
+      }
+    },
+    "Owner" : {
+      "type" : "object",
+      "properties" : {
+        "clientKey" : {
+          "type" : "string",
+          "description" : "Technical sequence number of the owner",
+          "readOnly" : true
+        },
+        "designation" : {
+          "type" : "string",
+          "description" : "Name or other designation of the owner",
+          "readOnly" : true
+        },
+        "ownershipRelationship:ownershipStructure" : {
+          "example" : "/banks/{number}/codes/OwnershipRelationships",
+          "description" : "Reference to the ownership structure (e.g. 1: Sole ownership)",
+          "$ref" : "#/definitions/CodeTableObject"
+        },
+        "_links" : {
+          "description" : "HAL _links",
+          "readOnly" : true,
+          "$ref" : "#/definitions/Curies"
+        }
+      },
+      "description" : "Owner of a property."
+    },
+    "CodeTableDescription" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "Identification",
+          "readOnly" : true
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "Name of the code table",
+          "readOnly" : true
+        },
+        "code:items" : {
+          "description" : "Code table items",
+          "$ref" : "#/definitions/Link"
+        }
+      },
+      "description" : "/banks/{number}/codes"
+    },
+    "Address" : {
+      "type" : "object",
+      "properties" : {
+        "street" : {
+          "type" : "string",
+          "description" : "Street of the property",
+          "readOnly" : true
+        },
+        "postcode" : {
+          "type" : "string",
+          "description" : "Postcode of the place of the property",
+          "readOnly" : true
+        },
+        "place" : {
+          "type" : "string",
+          "description" : "Designation of the place (excl. country and postcode) of the property",
+          "readOnly" : true
+        },
+        "country:country" : {
+          "example" : "/banks/{number}/codes/Countries",
+          "description" : "Reference to the country of the property (e.g. 1: Switzerland)",
+          "$ref" : "#/definitions/CodeTableString"
+        },
+        "_links" : {
+          "description" : "HAL _links",
+          "readOnly" : true,
+          "$ref" : "#/definitions/Curies"
+        }
+      },
+      "description" : "Address of the property."
+    },
+    "CodeTableObject" : {
+      "type" : "object",
+      "properties" : {
+        "href" : {
+          "type" : "object",
+          "description" : "Link to the code table entry/item",
+          "readOnly" : true
+        }
+      },
+      "description" : "/banks/{number}/codes/{id}"
+    },
+    "MasterPlot" : {
+      "type" : "object",
+      "properties" : {
+        "landRegNumber1" : {
+          "type" : "string",
+          "description" : "Master plot: First part of the land register number",
+          "readOnly" : true
+        },
+        "landRegNumber2" : {
+          "type" : "string",
+          "description" : "Master plot: Second part of the land register number",
+          "readOnly" : true
+        },
+        "landRegNumber3" : {
+          "type" : "string",
+          "description" : "Master plot: Third part of the land register number",
+          "readOnly" : true
+        }
+      },
+      "description" : "Master plot."
+    },
+    "MortgageCertificateSummary" : {
+      "type" : "object",
+      "properties" : {
+        "key" : {
+          "type" : "string",
+          "description" : "Technical sequence number of the mortgage certificate",
+          "readOnly" : true
+        },
+        "propertyKey" : {
+          "type" : "string",
+          "description" : "Technical sequence number of the property",
+          "readOnly" : true
+        },
+        "nominalAmount" : {
+          "readOnly" : true,
+          "$ref" : "#/definitions/MoneyAmount"
+        },
+        "rank" : {
+          "type" : "string",
+          "description" : "Real estate lien rank",
+          "readOnly" : true
+        },
+        "securityType:type" : {
+          "example" : "/banks/{number}/codes/SecurityTypes",
+          "description" : "Reference to the securities type (e.g. 2: Mortgage bonds)",
+          "$ref" : "#/definitions/CodeTableObject"
+        },
+        "_links" : {
+          "description" : "HAL _links",
+          "readOnly" : true,
+          "$ref" : "#/definitions/Curies"
+        }
+      },
+      "description" : "Only the most important key data of a mortgage certificate, to provide an overview.",
+      "x-className" : {
+        "type" : "string",
+        "format" : "integrationService.realestate.v1.MortgageCertificateSummary"
+      }
+    },
+    "OrderSummary" : {
+      "type" : "object",
+      "properties" : {
+        "propertyKey" : {
+          "type" : "string",
+          "description" : "Technical sequence number of the property",
+          "readOnly" : true
+        },
+        "key" : {
+          "type" : "string",
+          "description" : "Technical sequence number of the loan order",
+          "readOnly" : true
+        },
+        "id" : {
+          "type" : "string",
+          "description" : "ID of the loan order",
+          "readOnly" : true
+        },
+        "clientKey" : {
+          "type" : "string",
+          "description" : "Technical sequence number of the client",
+          "readOnly" : true
+        },
+        "creditLineDesignation" : {
+          "type" : "string",
+          "description" : "Credit line designation",
+          "readOnly" : true
+        },
+        "use" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "Date on which the order is put into use",
+          "readOnly" : true
+        },
+        "businessCase:businessCase" : {
+          "example" : "/banks/{number}/codes/BusinessCases",
+          "description" : "Reference to the business case (e.g. 900: New loan)",
+          "$ref" : "#/definitions/CodeTableObject"
+        },
+        "loanRequestReason:reasonForApplication" : {
+          "example" : "/banks/{number}/codes/LoanRequestReasons",
+          "description" : "Reference to the reason for application (e.g. 1000: Real estate purchase)",
+          "$ref" : "#/definitions/CodeTableObject"
+        },
+        "_links" : {
+          "description" : "HAL _links",
+          "readOnly" : true,
+          "$ref" : "#/definitions/Curies"
+        }
+      },
+      "description" : "Only the most important key data of a loan order in use, to provide an overview.",
+      "x-className" : {
+        "type" : "string",
+        "format" : "integrationService.realestate.v1.OrderSummary"
+      }
+    },
+    "CodeTableString" : {
+      "type" : "object",
+      "properties" : {
+        "href" : {
+          "type" : "string",
+          "description" : "Link to the code table entry/item",
+          "readOnly" : true
+        }
+      },
+      "description" : "/banks/{number}/codes/{id}"
+    },
+    "MoneyAmount" : {
+      "type" : "object",
+      "properties" : {
+        "amount" : {
+          "type" : "number",
+          "description" : "Amount",
+          "readOnly" : true
+        },
+        "currency:currency" : {
+          "example" : "/banks/{number}/codes/Currencies",
+          "description" : "ISO code of the currency",
+          "$ref" : "#/definitions/CodeTableString"
+        },
+        "_links" : {
+          "description" : "HAL _links",
+          "readOnly" : true,
+          "$ref" : "#/definitions/Curies"
+        }
+      },
+      "description" : "An amount of money in a currency."
+    },
+    "PropertySummary" : {
+      "type" : "object",
+      "properties" : {
+        "key" : {
+          "type" : "string",
+          "description" : "Technical sequence number of the property",
+          "readOnly" : true
+        },
+        "designation" : {
+          "type" : "string",
+          "description" : "Designation of the property",
+          "readOnly" : true
+        },
+        "landRegisterNumber" : {
+          "description" : "Land register number",
+          "readOnly" : true,
+          "$ref" : "#/definitions/LandRegisterNumber"
+        },
+        "propertyType:propertyType" : {
+          "example" : "/banks/{number}/codes/PropertyTypes",
+          "description" : "Reference to the property type (e.g. 1: Single-family house)",
+          "$ref" : "#/definitions/CodeTableObject"
+        },
+        "_links" : {
+          "description" : "HAL _links",
+          "readOnly" : true,
+          "$ref" : "#/definitions/Curies"
+        }
+      },
+      "description" : "Only the most important key data of a property, to provide an overview.",
+      "x-className" : {
+        "type" : "string",
+        "format" : "integrationService.realestate.v1.PropertySummary"
+      }
+    },
+    "Appraisal" : {
+      "type" : "object",
+      "properties" : {
+        "key" : {
+          "type" : "string",
+          "description" : "Technical sequence number of the internal appraisal",
+          "readOnly" : true
+        },
+        "propertyKey" : {
+          "type" : "string",
+          "description" : "Technical sequence number of the property",
+          "readOnly" : true
+        },
+        "marketValue" : {
+          "description" : "Market value",
+          "readOnly" : true,
+          "$ref" : "#/definitions/MoneyAmount"
+        },
+        "realValue" : {
+          "description" : "Real value",
+          "readOnly" : true,
+          "$ref" : "#/definitions/MoneyAmount"
+        },
+        "capitalisedIncomeValue" : {
+          "description" : "Capitalised income value",
+          "readOnly" : true,
+          "$ref" : "#/definitions/MoneyAmount"
+        },
+        "lendingBasis" : {
+          "description" : "Lending basis",
+          "readOnly" : true,
+          "$ref" : "#/definitions/MoneyAmount"
+        },
+        "appraisalDate" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "Date of the appraisal",
+          "readOnly" : true
+        }
+      },
+      "description" : "Contains additional information about the internal appraisal of a property.",
+      "x-className" : {
+        "type" : "string",
+        "format" : "integrationService.realestate.v1.Appraisal"
+      }
+    },
+    "Curies" : {
+      "type" : "object",
+      "properties" : {
+        "curies" : {
+          "type" : "array",
+          "description" : "HAL curies",
+          "readOnly" : true,
+          "items" : {
+            "$ref" : "#/definitions/Curie"
+          }
+        }
+      },
+      "description" : "HAL curies"
+    },
+    "AppraisalSummary" : {
+      "type" : "object",
+      "properties" : {
+        "key" : {
+          "type" : "string",
+          "description" : "Technical sequence number of the internal appraisal",
+          "readOnly" : true
+        },
+        "propertyKey" : {
+          "type" : "string",
+          "description" : "Technical sequence number of the property",
+          "readOnly" : true
+        },
+        "lendingBasis" : {
+          "description" : "Lending basis",
+          "readOnly" : true,
+          "$ref" : "#/definitions/MoneyAmount"
+        },
+        "appraisalDate" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "Date of the appraisal",
+          "readOnly" : true
+        }
+      },
+      "description" : "Contains minimum information about an internal appraisal, to be used in lists.",
+      "x-className" : {
+        "type" : "string",
+        "format" : "integrationService.realestate.v1.AppraisalSummary"
+      }
+    },
+    "LandRegisterDescription" : {
+      "type" : "object",
+      "properties" : {
+        "propertyKey" : {
+          "type" : "string",
+          "description" : "Technical sequence number of the property",
+          "readOnly" : true
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "Land register description",
+          "readOnly" : true
+        },
+        "statusAsAt" : {
+          "type" : "string",
+          "format" : "date-time",
+          "example" : "2012-01-23",
+          "description" : "Status as at date",
+          "readOnly" : true
+        }
+      },
+      "description" : "The land register is a public register of real property rights. The system automatically creates the land register description. The user can supplement the data, restructure it, etc.",
+      "x-className" : {
+        "type" : "string",
+        "format" : "integrationService.realestate.v1.LandRegisterDescription"
+      }
+    },
+    "Item" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "string",
+          "description" : "Identification of the item/code table entry",
+          "readOnly" : true
+        },
+        "language" : {
+          "type" : "string",
+          "description" : "Language of the shortcut and the description (ISO-639-1)",
+          "readOnly" : true
+        },
+        "shortcut" : {
+          "type" : "string",
+          "description" : "Shortcut of the item/code table entry",
+          "readOnly" : true
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "Description of the item/code table entry",
+          "readOnly" : true
+        }
+      },
+      "description" : "Code table item, an entry of a code table"
+    },
+    "CodeTableResponse" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "Identification of the code table",
+          "readOnly" : true
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "Textual description of the code table",
+          "readOnly" : true
+        },
+        "items" : {
+          "type" : "array",
+          "description" : "The code table items/entries",
+          "readOnly" : true,
+          "items" : {
+            "$ref" : "#/definitions/Item"
+          }
+        }
+      },
+      "description" : "Response object for a code table request",
+      "x-className" : {
+        "type" : "string",
+        "format" : "integrationService.codeTableAccessHal.v1.CodeTableResponse"
+      }
+    },
+    "LandRegisterNumber" : {
+      "type" : "object",
+      "properties" : {
+        "number1" : {
+          "type" : "string",
+          "description" : "First part of the land register number",
+          "readOnly" : true
+        },
+        "number2" : {
+          "type" : "string",
+          "description" : "Second part of the land register number",
+          "readOnly" : true
+        },
+        "number3" : {
+          "type" : "string",
+          "description" : "Third part of the land register number",
+          "readOnly" : true
+        }
+      },
+      "description" : "Land register number."
+    },
+    "Curie" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "description" : "curie name",
+          "readOnly" : true
+        },
+        "href" : {
+          "type" : "string",
+          "description" : "href path of the resource",
+          "readOnly" : true
+        },
+        "templated" : {
+          "type" : "boolean",
+          "description" : "if true then use {rel} place holder in href (default is true)",
+          "readOnly" : true,
+          "default" : false
+        }
+      },
+      "description" : "HAL curie"
+    },
+    "Property" : {
+      "type" : "object",
+      "properties" : {
+        "key" : {
+          "type" : "string",
+          "description" : "Technical sequence number of the property",
+          "readOnly" : true
+        },
+        "designation" : {
+          "type" : "string",
+          "description" : "Designation of the property",
+          "readOnly" : true
+        },
+        "address" : {
+          "description" : "Address of the property",
+          "readOnly" : true,
+          "$ref" : "#/definitions/Address"
+        },
+        "landRegisterNumber" : {
+          "description" : "Land register number",
+          "readOnly" : true,
+          "$ref" : "#/definitions/LandRegisterNumber"
+        },
+        "egrid" : {
+          "type" : "string",
+          "description" : "Federal property identification",
+          "readOnly" : true
+        },
+        "loanToValueRatio" : {
+          "type" : "number",
+          "description" : "Maximum loan-to-value ratio in percent",
+          "readOnly" : true
+        },
+        "residentialSpaceRate" : {
+          "type" : "number",
+          "description" : "Residential space in percent",
+          "readOnly" : true
+        },
+        "masterPlot" : {
+          "description" : "Master plot",
+          "readOnly" : true,
+          "$ref" : "#/definitions/MasterPlot"
+        },
+        "valueOfShareNumerator" : {
+          "type" : "number",
+          "description" : "Numerator of the share (share = condominium ownership share of the master plot)",
+          "readOnly" : true
+        },
+        "valueOfShareDenominator" : {
+          "type" : "number",
+          "description" : "Denominator of the share (share = condominium ownership share of the master plot)",
+          "readOnly" : true
+        },
+        "owners" : {
+          "type" : "array",
+          "description" : "Owner of a property",
+          "readOnly" : true,
+          "items" : {
+            "$ref" : "#/definitions/Owner"
+          }
+        },
+        "propertyType:propertyType" : {
+          "example" : "/banks/{number}/codes/PropertyTypes",
+          "description" : "Reference to the property type (e.g. 1: Single-family house)",
+          "$ref" : "#/definitions/CodeTableObject"
+        },
+        "propertyTypeOfUse:usageType" : {
+          "example" : "/banks/{number}/codes/PropertyTypesOfUse",
+          "description" : "Reference to the usage type (e.g. 1: Owner occupation)",
+          "$ref" : "#/definitions/CodeTableObject"
+        },
+        "buildingType:buildingType" : {
+          "example" : "/banks/{number}/codes/BuildingTypes",
+          "description" : "Reference to the building type of the main building (e.g. 3: Condominium ownership (residential))",
+          "$ref" : "#/definitions/CodeTableObject"
+        },
+        "typeOfConstruction:typeOfConstruction" : {
+          "example" : "/banks/{number}/codes/TypesOfConstruction",
+          "description" : "Reference to the type of construction of the main building (e.g. 1: Detached)",
+          "$ref" : "#/definitions/CodeTableObject"
+        },
+        "buildingResidenceType:buildingResidenceType" : {
+          "example" : "/banks/{number}/codes/BuildingResidenceTypes",
+          "description" : "Reference to the building residence type of the main building (e.g. 1: Penthouse)",
+          "$ref" : "#/definitions/CodeTableObject"
+        },
+        "_links" : {
+          "description" : "HAL _links",
+          "readOnly" : true,
+          "$ref" : "#/definitions/Curies"
+        }
+      },
+      "description" : "All information about a property.",
+      "x-className" : {
+        "type" : "string",
+        "format" : "integrationService.realestate.v1.Property"
+      }
+    },
+    "Link" : {
+      "type" : "object",
+      "properties" : {
+        "href" : {
+          "type" : "string",
+          "description" : "Link to the code table entry/item",
+          "readOnly" : true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,860 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "FIL interface for reading the client assessments and the total exposure of the client. Note: All amounts are shown in the balance sheet currency of the bank.",
+    "version" : "1.0.1",
+    "title" : "Loan advisory client assessment and total exposure",
+    "contact" : {
+      "name" : "middleware-communication@finnova.ch",
+      "email" : "middleware-communication@finnova.ch"
+    }
+  },
+  "host" : "https://loanexposureassessment.valacr.fil.finnova.com",
+  "tags" : [ {
+    "name" : "api/v1/banks/{number}",
+    "description" : "Defines banks"
+  } ],
+  "schemes" : [ "http" ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "paths" : {
+    "/api/v1/banks/{number}" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "api/v1/banks/{number}" ],
+        "operationId" : "route1",
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "405" : {
+            "description" : "Method not allowed"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route1"
+
+      }
+    },
+    "/api/v1/banks/{number}/clients/{key}/clientAssessments" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "api/v1/banks/{number}" ],
+        "summary" : "Delivers the client assessments of a client. Details of a client assessment. Previously entered client-specific information relevant for the client advisory process can be fetched here. The information is issued in a structured and thematic way (criterion/sub-criterion). By default, currently valid client assessments are delivered. It is also possible to select historized entries for a period. Only assessments made by the client advisors are delivered.",
+        "operationId" : "route3",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank number",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "key",
+          "in" : "path",
+          "description" : "Technical sequence number of the client",
+          "required" : true,
+          "type" : "number"
+        }, {
+          "name" : "validFrom",
+          "in" : "query",
+          "description" : "(YYYY-MM-DD) Optional parameter that determines the start date           of a time interval for the validity of the historized client assessments.            * If both a validFrom date and a validUntil date are indicated, all client           assessments are returned whose validity starts or ends within this time           interval.            * If only a validFrom date but __no__ validUntil date is indicated, all           client assessments are returned whose validity does not end before this           date.            * If only a validUntil date but __no__ validFrom date is indicated, all           client assessments are returned whose validity does not start after this           date.            * If neither a validFrom date nor a validUntil date is indicated, all the           current client assessments are returned (default).",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "validUntil",
+          "in" : "query",
+          "description" : "(YYYY-MM-DD) Optional parameter that determines the end date           of a time interval for the validity of the historized client assessments.           Any validFrom date must __not__ be after this date.",
+          "required" : false,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Client assessment successfully read",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ClientAssessment"
+              }
+            }
+          },
+          "400" : {
+            "description" : "Incorrect input parameters"
+          },
+          "404" : {
+            "description" : "Client not found"
+          },
+          "500" : {
+            "description" : "Internal server error"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route3"
+      }
+    },
+    "/api/v1/banks/{number}/clients/{key}/totalExposure" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "api/v1/banks/{number}" ],
+        "summary" : "Provides the total exposure (loans and their collateralisation)\n        of a client, including\n\n        - total exposure of the economic unit\n\n        - exposure from financing (optional)\n\n        - total exposure of the clients participating in the economic unit, as well\n        as the structure of the respective economic unit.",
+        "operationId" : "route2",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank number",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "key",
+          "in" : "path",
+          "description" : "Technical sequence number of the client",
+          "required" : true,
+          "type" : "number"
+        }, {
+          "name" : "orderKey",
+          "in" : "query",
+          "description" : "Technical sequence number of a loan advisory discussion. With           this optional query parameter, the exposure from the corresponding financing           is provided in addition to the exposure at the level of the client and the           economic unit. ",
+          "required" : false,
+          "type" : "number"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Client's total exposure successfully",
+            "schema" : {
+              "$ref" : "#/definitions/TotalExposureResponse"
+            }
+          },
+          "400" : {
+            "description" : "Incorrect input parameters"
+          },
+          "404" : {
+            "description" : "Client not found"
+          },
+          "500" : {
+            "description" : "Internal server error"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route2"
+      }
+    },
+    "/api/v1/banks/{number}/codes" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "api/v1/banks/{number}" ],
+        "operationId" : "route4",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTablesResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table list for the given tenant"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route4"
+      }
+    },
+    "/api/v1/banks/{number}/codes/ClientAssessmentCriteria" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "api/v1/banks/{number}" ],
+        "operationId" : "route5",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route5"
+      }
+    },
+    "/api/v1/banks/{number}/codes/ClientAssessmentCriteria/{code}" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "api/v1/banks/{number}" ],
+        "operationId" : "route6",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "code",
+          "in" : "path",
+          "description" : "The code (identification) of the code table entry/item",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id and code"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route6"
+      }
+    },
+    "/api/v1/banks/{number}/codes/ClientAssessmentMainCriteria" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "api/v1/banks/{number}" ],
+        "operationId" : "route7",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route7"
+      }
+    },
+    "/api/v1/banks/{number}/codes/ClientAssessmentMainCriteria/{code}" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "api/v1/banks/{number}" ],
+        "operationId" : "route8",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "code",
+          "in" : "path",
+          "description" : "The code (identification) of the code table entry/item",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id and code"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route8"
+      }
+    },
+    "/api/v1/banks/{number}/codes/EngagementTypes" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "api/v1/banks/{number}" ],
+        "operationId" : "route11",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route11"
+      }
+    },
+    "/api/v1/banks/{number}/codes/EngagementTypes/{code}" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "api/v1/banks/{number}" ],
+        "operationId" : "route12",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "code",
+          "in" : "path",
+          "description" : "The code (identification) of the code table entry/item",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id and code"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route12"
+      }
+    },
+    "/api/v1/banks/{number}/codes/RelationshipTypes" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "api/v1/banks/{number}" ],
+        "operationId" : "route9",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route9"
+      }
+    },
+    "/api/v1/banks/{number}/codes/RelationshipTypes/{code}" : {
+      "get" : {
+        "security": [
+          {
+            "Bearer": [
+            ]
+          }
+        ],
+        "tags" : [ "api/v1/banks/{number}" ],
+        "operationId" : "route10",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "number",
+          "in" : "path",
+          "description" : "Finnova bank",
+          "required" : true,
+          "type" : "integer"
+        }, {
+          "name" : "code",
+          "in" : "path",
+          "description" : "The code (identification) of the code table entry/item",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "schema" : {
+              "$ref" : "#/definitions/CodeTableResponse"
+            }
+          },
+          "400" : {
+            "description" : "Error determining the code table for the given id and code"
+          }
+        },
+        "x-camelContextId" : "camel-1",
+        "x-routeId" : "route10"
+      }
+    }
+  },
+  "definitions" : {
+    "CodeTable" : {
+      "type" : "object",
+      "properties" : {
+        "href" : {
+          "type" : "object",
+          "description" : "Link to the code table entry/item",
+          "readOnly" : true
+        }
+      },
+      "description" : "/banks/{number}/codes/{id}"
+    },
+    "CodeTableObject" : {
+      "type" : "object",
+      "properties" : {
+        "href" : {
+          "type" : "object",
+          "description" : "Link to the code table entry/item",
+          "readOnly" : true
+        }
+      },
+      "description" : "/banks/{number}/codes/{id}"
+    },
+    "Curie" : {
+      "type" : "object",
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "description" : "curie name",
+          "readOnly" : true
+        },
+        "href" : {
+          "type" : "string",
+          "description" : "href path of the resource",
+          "readOnly" : true
+        },
+        "templated" : {
+          "type" : "boolean",
+          "description" : "if true then use {rel} place holder in href (default is true)",
+          "readOnly" : true
+        }
+      },
+      "description" : "HAL curie"
+    },
+    "Curies" : {
+      "type" : "object",
+      "properties" : {
+        "curies" : {
+          "type" : "array",
+          "description" : "HAL curies",
+          "readOnly" : true,
+          "items" : {
+            "$ref" : "#/definitions/Curie"
+          }
+        }
+      },
+      "description" : "HAL curies"
+    },
+    "ClientAssessment" : {
+      "type" : "object",
+      "properties" : {
+        "date" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "Date of the assessment",
+          "readOnly" : true
+        },
+        "comment" : {
+          "type" : "string",
+          "description" : "Comment entered by client advisor",
+          "readOnly" : true
+        },
+        "userId" : {
+          "type" : "string",
+          "description" : "User ID of the client advisor that made the assessment",
+          "readOnly" : true
+        },
+        "validFrom" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "Datum der Beurteilung",
+          "readOnly" : true
+        },
+        "validTo" : {
+          "type" : "string",
+          "format" : "date-time",
+          "description" : "Datum der Beurteilung",
+          "readOnly" : true
+        },
+        "clientAssessmentMainCriterion:criterion" : {
+          "description" : "Assessment criterion",
+          "$ref" : "#/definitions/CodeTableObject"
+        },
+        "clientAssessmentCriterion:subCriterion" : {
+          "description" : "Assessment sub-criterion",
+          "$ref" : "#/definitions/CodeTableObject"
+        },
+        "_links" : {
+          "description" : "HAL _links",
+          "readOnly" : true,
+          "$ref" : "#/definitions/Curies"
+        }
+      },
+      "description" : "Details of a client assessment. Previously entered client-specific information relevant for the client advisory process can be fetched here. The information is issued in a structured and thematic way (criterion/sub-criterion). By default, currently valid client assessments are delivered. It is also possible to select historized entries for a period. Only assessments made by the client advisors are delivered.",
+      "x-className" : {
+        "type" : "string",
+        "format" : "integrationService.loanexposureassessment.v1.ClientAssessment"
+      }
+    },
+    "TotalExposureResponse" : {
+      "type" : "object",
+      "properties" : {
+        "totalExposures" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/TotalExposure"
+          }
+        },
+        "clientExposures" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/ClientExposure"
+          }
+        },
+        "economicUnitRelationships" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/EconomicUnitRelationship"
+          }
+        }
+      },
+      "description" : "Total exposures at the level of financing/client/economic unit.\n      Delivers the total exposure (loans and their collateralisation) of a client,\n      including\n\n\n      - total exposure of the economic unit\n\n\n      - exposure from financing (optional)\n\n\n      - total exposure of the clients participating in the economic unit, as well\n      as the structure of the respective economic unit",
+      "x-className" : {
+        "type" : "string",
+        "format" : "integrationService.loanexposureassessment.v1.TotalExposureResponse"
+      }
+    },
+    "ClientExposure" : {
+      "type" : "object",
+      "properties" : {
+        "clientKey" : {
+          "type" : "integer",
+          "description" : "Technical seqence number of client",
+          "readOnly" : true
+        },
+        "clientNumber" : {
+          "type" : "string",
+          "description" : "description",
+          "readOnly" : true
+        },
+        "clientDesignation" : {
+          "type" : "string",
+          "description" : "description",
+          "readOnly" : true
+        },
+        "exposure" : {
+          "description" : "description",
+          "readOnly" : true,
+          "$ref" : "#/definitions/Exposure"
+        }
+      },
+      "description" : "Total exposure of a client of the economic unit"
+    },
+    "Exposure" : {
+      "type" : "object",
+      "properties" : {
+        "loanPrevious" : {
+          "type" : "number",
+          "description" : "Loan previous",
+          "readOnly" : true
+        },
+        "increaseReduction" : {
+          "type" : "number",
+          "description" : "Increase/reduction",
+          "readOnly" : true
+        },
+        "loanNew" : {
+          "type" : "number",
+          "description" : "Loan new",
+          "readOnly" : true
+        },
+        "secured" : {
+          "type" : "number",
+          "description" : "Secured",
+          "readOnly" : true
+        },
+        "realEstateLien" : {
+          "type" : "number",
+          "description" : "Real estate lien",
+          "readOnly" : true
+        },
+        "unsecured" : {
+          "type" : "number",
+          "description" : "Unsecured",
+          "readOnly" : true
+        },
+        "totalExposure" : {
+          "type" : "number",
+          "description" : "Total exposure",
+          "readOnly" : true
+        },
+        "loanLossAllowance" : {
+          "type" : "number",
+          "description" : "Loan loss allowance",
+          "readOnly" : true
+        }
+      },
+      "description" : "Attributes of total exposure"
+    },
+    "EconomicUnitRelationship" : {
+      "type" : "object",
+      "properties" : {
+        "clientKey" : {
+          "type" : "integer",
+          "description" : "description",
+          "readOnly" : true
+        },
+        "parentKey" : {
+          "type" : "integer",
+          "description" : "description",
+          "readOnly" : true
+        },
+        "relationshipType:relationshipType" : {
+          "description" : "Type of client–client relationship",
+          "$ref" : "#/definitions/CodeTableObject"
+        },
+        "_links" : {
+          "description" : "HAL _links",
+          "readOnly" : true,
+          "$ref" : "#/definitions/Curies"
+        }
+      },
+      "description" : "EconomicUnitRelationship"
+    },
+    "TotalExposure" : {
+      "type" : "object",
+      "properties" : {
+        "exposure" : {
+          "description" : "description",
+          "readOnly" : true,
+          "$ref" : "#/definitions/Exposure"
+        },
+        "commentLoanOfficer" : {
+          "type" : "string",
+          "description" : "description",
+          "readOnly" : true
+        },
+        "commentAdvisor" : {
+          "type" : "string"
+        },
+        "engagementType:exposureType" : {
+          "description" : "ExposureType",
+          "$ref" : "#/definitions/CodeTableObject"
+        },
+        "_links" : {
+          "description" : "HAL _links",
+          "readOnly" : true,
+          "$ref" : "#/definitions/Curies"
+        }
+      },
+      "description" : "Total exposure of financing/client/economic unit"
+    },
+    "CodeTablesResponse" : {
+      "type" : "object",
+      "properties" : {
+        "codes" : {
+          "type" : "array",
+          "description" : "List of all code tables for the given tenant",
+          "readOnly" : true,
+          "items" : {
+            "$ref" : "#/definitions/CodeTableDescription"
+          }
+        },
+        "_links" : {
+          "description" : "HAL _links",
+          "readOnly" : true,
+          "$ref" : "#/definitions/Curies"
+        }
+      },
+      "description" : "Response object for a code tables request",
+      "x-className" : {
+        "type" : "string",
+        "format" : "integrationService.codeTableAccessHal.v1.CodeTablesResponse"
+      }
+    },
+    "CodeTableDescription" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "Identification",
+          "readOnly" : true
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "Name of the code table",
+          "readOnly" : true
+        },
+        "code:items" : {
+          "description" : "Code table items",
+          "$ref" : "#/definitions/Link"
+        }
+      },
+      "description" : "/banks/{number}/codes"
+    },
+    "Link" : {
+      "type" : "object",
+      "properties" : {
+        "href" : {
+          "type" : "string",
+          "description" : "Link to the code table entry/item",
+          "readOnly" : true
+        }
+      }
+    },
+    "Item" : {
+      "type" : "object",
+      "properties" : {
+        "code" : {
+          "type" : "string",
+          "description" : "Identification of the item/code table entry",
+          "readOnly" : true
+        },
+        "language" : {
+          "type" : "string",
+          "description" : "Language of the shortcut and the description (ISO-639-1)",
+          "readOnly" : true
+        },
+        "shortcut" : {
+          "type" : "string",
+          "description" : "Shortcut of the item/code table entry",
+          "readOnly" : true
+        },
+        "description" : {
+          "type" : "string",
+          "description" : "Description of the item/code table entry",
+          "readOnly" : true
+        }
+      },
+      "description" : "Code table item, an entry of a code table"
+    },
+    "CodeTableResponse" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "Identification of the code table",
+          "readOnly" : true
+        },
+        "name" : {
+          "type" : "string",
+          "description" : "Textual description of the code table",
+          "readOnly" : true
+        },
+        "items" : {
+          "type" : "array",
+          "description" : "The code table items/entries",
+          "readOnly" : true,
+          "items" : {
+            "$ref" : "#/definitions/Item"
+          }
+        }
+      },
+      "description" : "Response object for a code table request",
+      "x-className" : {
+        "type" : "string",
+        "format" : "integrationService.codeTableAccessHal.v1.CodeTableResponse"
+      }
+    }
+  }
+}

@@ -1,0 +1,1531 @@
+---
+swagger: '2.0'
+info:
+  version: 0.0.8
+  title: BSA Axon Loan Advisory
+  description: Interfaces between Finnova Application and Axon Loan Advisory Application
+  contact:
+    name: BSA Team
+    email: bsa-team@finnova.com
+  license:
+    name: Send an email to bsa-team@finnova.com to get an activation key.
+    url: https://www.finnova.com
+schemes:
+- http
+- https
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+paths:
+  "/banks/{userbank}/codeTables/":
+    get:
+      security:
+      - Bearer: []
+      summary: Returns code tables for lookup purpose.
+      operationId: getCodeTables
+      description: Returns a JSON Object with code tables.
+      produces:
+      - application/json
+      parameters:
+      - name: userbank
+        in: path
+        type: integer
+        required: true
+        description: Finnova USERBK_NR --> Reference to SR1USBK
+      responses:
+        '200':
+          description: Code tables as JSON Object.
+          schema:
+            "$ref": "#/definitions/CodeTablesItem"
+        '400':
+          description: bad input parameter
+  "/banks/{userbank}/loanAdvisory/":
+    put:
+      security:
+      - Bearer: []
+      summary: Entry of a new loan advisory
+      description: Adds a new loan advisory in Finnova.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: userbank
+        in: path
+        type: integer
+        required: true
+        description: Finnova USERBK_NR --> Reference to SR1USBK
+      - name: body
+        in: body
+        description: Loan data which needs to be added to Finnova
+        required: true
+        schema:
+          "$ref": "#/definitions/loanAdvisory"
+      responses:
+        '201':
+          description: Loan advisory successfully opened
+          schema:
+            "$ref": "#/definitions/loanAdvisoryResponse"
+        '400':
+          description: Error when adding a new loan advisory in the back-end application
+          schema:
+            "$ref": "#/definitions/loanAdvisoryResponse"
+  "/banks/{userbank}/accountData/":
+    get:
+      security:
+      - Bearer: []
+      summary: Returns account related data.
+      operationId: getAccountData
+      description: Returns a JSON Object with account data.
+      produces:
+      - application/json
+      parameters:
+      - name: userbank
+        in: path
+        type: integer
+        required: true
+        description: Finnova USERBK_NR --> Reference to SR1USBK
+      - in: query
+        name: accountNumber
+        description: Account number (KT_NR)
+        required: true
+        type: integer
+        format: int64
+        minimum: 1
+      responses:
+        '200':
+          description: Account data as JSON Object.
+          schema:
+            "$ref": "#/definitions/accountDataItem"
+        '400':
+          description: bad input parameter
+  "/banks/{userbank}/accountTariffs/":
+    get:
+      security:
+      - Bearer: []
+      summary: Returns account tariffs related data.
+      operationId: getAccountTariffsData
+      description: Returns a JSON Object with account tariffs data.
+      produces:
+      - application/json
+      parameters:
+      - name: userbank
+        in: path
+        type: integer
+        required: true
+        description: Finnova USERBK_NR --> Reference to SR1USBK
+      - in: query
+        name: fromDate
+        description: From Date
+        required: true
+        type: string
+        format: date
+      - in: query
+        name: toDate
+        description: To Date
+        required: true
+        type: string
+        format: date
+      - in: query
+        name: ANW_CD
+        description: Application Code
+        required: true
+        type: string
+        minimum: 1
+      - in: query
+        name: accountNumber
+        description: Account number (KT_NR)
+        required: true
+        type: integer
+        format: int64
+        minimum: 1
+      responses:
+        '200':
+          description: Account tariffs data as JSON Object.
+          schema:
+            "$ref": "#/definitions/accountTariffsDataItem"
+        '400':
+          description: bad input parameter
+  "/banks/{userbank}/clientData/":
+    get:
+      security:
+      - Bearer: []
+      summary: Returns client related data.
+      operationId: getClientData
+      description: Returns a JSON Object with client data.
+      produces:
+      - application/json
+      parameters:
+      - name: userbank
+        in: path
+        type: integer
+        required: true
+        description: Finnova USERBK_NR --> Reference to SR1USBK
+      - in: query
+        name: clientNumber
+        description: Client number (KD_NR)
+        required: true
+        type: integer
+        format: int64
+        minimum: 1
+      - in: query
+        name: allClients
+        description: Single client or all active clients (bulk load)
+        required: true
+        type: boolean
+      responses:
+        '200':
+          description: Client data as JSON Object.
+          schema:
+            "$ref": "#/definitions/clientDataItem"
+        '400':
+          description: bad input parameter
+  "/banks/{userbank}/addressData/":
+    get:
+      security:
+      - Bearer: []
+      summary: Returns address related data.
+      operationId: getAddressData
+      description: Returns a JSON Object with address data.
+      produces:
+      - application/json
+      parameters:
+      - name: userbank
+        in: path
+        type: integer
+        required: true
+        description: Finnova USERBK_NR --> Reference to SR1USBK
+      - in: query
+        name: clientNumber
+        description: Client number (KD_NR)
+        required: true
+        type: integer
+        format: int64
+        minimum: 1
+      - in: query
+        name: allAddresses
+        type: boolean
+        required: true
+        description: Single customer address or all active address data (bulk load)
+      responses:
+        '200':
+          description: Address data as JSON Object.
+          schema:
+            "$ref": "#/definitions/addressDataItem"
+        '400':
+          description: bad input parameter
+  "/banks/{userbank}/exceptionToPolicy/":
+    get:
+      security:
+      - Bearer: []
+      summary: Returns details of an Exception To Policy.
+      operationId: getETPData
+      description: Returns a JSON Object with etp data.
+      produces:
+      - application/json
+      parameters:
+      - name: userbank
+        in: path
+        type: integer
+        required: true
+        description: Finnova USERBK_NR --> Reference to SR1USBK
+      - in: query
+        name: etpNumber
+        description: ETP number (ETP_NUTZ_LNR)
+        required: true
+        type: integer
+        format: int64
+        minimum: 1
+      responses:
+        '200':
+          description: ETP data as JSON Object.
+          schema:
+            "$ref": "#/definitions/etpDataItem"
+        '400':
+          description: bad input parameter
+  "/banks/{userbank}/loanOrderData/":
+    get:
+      security:
+      - Bearer: []
+      summary: Returns loan order related data.
+      operationId: getLoanOrderData
+      description: Returns a JSON Object with Loan Order data.
+      produces:
+      - application/json
+      parameters:
+      - name: userbank
+        in: path
+        type: integer
+        required: true
+        description: Finnova USERBK_NR --> Reference to SR1USBK
+      - in: query
+        name: orderNumber
+        description: Order number (AUF_LNR)
+        required: true
+        type: integer
+        format: int64
+        minimum: 1
+      responses:
+        '200':
+          description: Loan order data as JSON Object.
+          schema:
+            "$ref": "#/definitions/loanOrderDataItem"
+        '400':
+          description: bad input parameter
+  "/banks/{userbank}/realEstateData/":
+    get:
+      security:
+      - Bearer: []
+      summary: Returns real estate related data.
+      operationId: getRealEstateData
+      description: Returns a JSON Object with real estate data.
+      produces:
+      - application/json
+      parameters:
+      - name: userbank
+        in: path
+        type: integer
+        required: true
+        description: Finnova USERBK_NR --> Reference to SR1USBK
+      - in: query
+        name: realEstateNumber
+        description: Real estate number (GR_LNR)
+        required: true
+        type: integer
+        format: int64
+        minimum: 1
+      responses:
+        '200':
+          description: Real estate data as JSON Object.
+          schema:
+            "$ref": "#/definitions/realEstateDataItem"
+        '400':
+          description: bad input parameter
+definitions:
+  CodeTablesItem:
+    type: object
+    required:
+    - id
+    - group
+    - number
+    - addition
+    - text.de
+    - text.fr
+    - text.en
+    properties:
+      id:
+        type: string
+        maxLength: 35
+        description: Primary Key for use as Foreign Key in other interfaces.
+        example: country-969
+      group:
+        type: string
+        maxLength: 35
+        description: Prefix for Primary Key and groups the elements by source.
+        example: country
+      number:
+        type: string
+        maxLength: 35
+        description: Sufix for Primary Key and ID of the source.
+        example: 969
+      addition:
+        type: string
+        maxLength: 35
+        description: For future use.
+        example: 
+      text.de:
+        type: string
+        maxLength: 35
+        description: Text Value.
+        example: Weihnachtsinsel (Indischer Ozean)
+      text.fr:
+        type: string
+        maxLength: 35
+        description: Text Value.
+        example: Christmas, Île
+      text.en:
+        type: string
+        maxLength: 35
+        description: Text Value.
+        example: Christmas Island
+  loanAdvisory:
+    type: object
+    required:
+    - businessCaseNumber
+    - reasonForApplication
+    - formOfUse
+    - orderOrigin
+    - client-number
+    - loanEnteredBy
+    properties:
+      businessCaseNumber:
+        type: integer
+        maxLength: 4
+        description: Business case number according to AL1GF.GF_NR
+      reasonForApplication:
+        type: integer
+        maxLength: 4
+        description: Reason for application according to KR1GESU_GRD.KR_GESU_GRD_CD
+      formOfUse:
+        type: integer
+        maxLength: 4
+        description: Reason for application according to KR1NUTZ_FORM.KR_NUTZ_FORM_CD
+      orderOrigin:
+        type: string
+        maxLength: 2
+        description: Order origin according to OM1AUFEM.AUF_EMPF_CD
+      client-number:
+        type: integer
+        format: int64
+        maxLength: 22
+        description: Client number of the borrower (KD_LNR)
+      loanEnteredBy:
+        type: integer
+        format: int64
+        maxLength: 22
+        description: Loan order entered by (KD_LNR_ERF)
+      comment:
+        type: string
+        maxLength: 2000
+        description: Comment about this loan advisory.
+      endDate:
+        type: string
+        format: date
+        description: The offer is valid up until this date (inclusive) (END_DAT_OFFERT).
+          'MAX_DATE' is loaded in the case of unlimited validity.
+      amortisation:
+        type: number
+        maxLength: 21
+        description: Amortisation in foreign currency (AMO_FWRG)
+      pledgedSecurity:
+        type: number
+        maxLength: 21
+        description: Pledged additional security (KR_BERAT_FIN.BETRAG_PFD_ZUSSICH)
+      pledgedSecurity2:
+        type: number
+        maxLength: 21
+        description: Pledged additional security 2nd pillar (KR_BERAT_FIN.BETRAG_PFDZUSI_BVG)
+      loanNew:
+        type: number
+        maxLength: 21
+        description: New loan (KR_BERAT_FIN.KR_LIM_ABLOES)
+      property:
+        "$ref": "#/definitions/property"
+      securities:
+        type: array
+        items:
+          "$ref": "#/definitions/securityItem"
+      amortisations:
+        type: array
+        items:
+          "$ref": "#/definitions/amortisation"
+      financing:
+        type: array
+        items:
+          "$ref": "#/definitions/financing"
+      engagements:
+        type: array
+        items:
+          "$ref": "#/definitions/engagement"
+      pricing:
+        type: array
+        items:
+          "$ref": "#/definitions/pricing"
+      photos:
+        type: array
+        items:
+          "$ref": "#/definitions/photo"
+  loanAdvisoryResponse:
+    type: object
+    required:
+    - id
+    - exceptionValue
+    - exceptionText
+    properties:
+      id:
+        type: string
+        maxLength: 22
+        description: Number of the data field KR_AUF.AUF_LNR which references a new
+          loan.
+      exceptionValue:
+        type: integer
+        maxLength: 4
+        description: Value from P_SrUlcIfc.ULC_MSG_NR.
+      exceptionText:
+        type: string
+        maxLength: 100
+        description: Resolved exception text for P_SrUlcIfc.ULC_MSG_NR.
+  property:
+    type: object
+    required:
+    - marketValue
+    - lendingBasis
+    - appraisalType
+    properties:
+      landRegNo1:
+        type: string
+        maxLength: 15
+        description: First part of the land register number.
+      landRegNo2:
+        type: string
+        maxLength: 15
+        description: Second part of the land register number.
+      landRegNo3:
+        type: string
+        maxLength: 15
+        description: Third part of the land register number.
+      propertyType:
+        type: integer
+        maxLength: 4
+        description: Property type code according to KR_BERAT_OBJ.GR_TYP_CD --> Reference
+          to GR1TYP
+      buildingType:
+        type: integer
+        maxLength: 4
+        description: Building type code according to KR_BERAT_OBJ.GBDE_TYP_CD -->
+          Reference to GR1GBDE_TYP
+      typeOfConstruction:
+        type: integer
+        maxLength: 4
+        description: Type of construction code according to KR_BERAT_OBJ.GBDE_ART_CD
+          --> Reference to GR1GBDE_ART
+      buildingResidenceType:
+        type: integer
+        maxLength: 4
+        description: Residence type code according to KR_BERAT_OBJ.WHG_ART_CD -->
+          Reference to GR1WHG_ART
+      usageType:
+        type: integer
+        maxLength: 4
+        description: Usage type code according to KR_BERAT_OBJ.GR_NUTZ_ART_CD -->
+          Reference to GR1NUTZ_ART
+      streetRealEst:
+        type: string
+        maxLength: 35
+        description: Street of the property.
+      postcode:
+        type: string
+        maxLength: 20
+        description: Postcode of the place of the property.
+      place:
+        type: string
+        maxLength: 35
+        description: Designation of the place (excl. country and postcode) of the
+          property.
+      placeNo:
+        type: integer
+        maxLength: 22
+        format: int64
+        description: 'Place (technical number) of the property.              '
+      purchasePrice:
+        type: number
+        maxLength: 21
+        description: Purchase price of the property
+      purchasePriceDate:
+        type: string
+        format: date
+        description: Date from which the purchase price is valid.
+      conversionCosts:
+        type: number
+        maxLength: 21
+        description: Conversion costs for the property.
+      contaminatedSiteType:
+        type: integer
+        maxLength: 4
+        description: Contaminated site code according to KR_BERAT_OBJ.GR_ALTLAST_ART_CD
+          --> Reference to GR1ALTLAST_ART
+      plotArea:
+        type: number
+        maxLength: 21
+        description: Plot area of the property.
+      cubage:
+        type: number
+        maxLength: 21
+        description: Volume of the property.
+      measurementType:
+        type: integer
+        maxLength: 4
+        description: Measurement type for building contents type code according to
+          KR_BERAT_OBJ.GBDE_INHT_TYP_CD --> Reference to GR1GBDE_INHT_TYP
+      apartmentType:
+        type: integer
+        maxLength: 4
+        description: Apartment type code according to KR_BERAT_OBJ.WHG_TYP_CD -->
+          Reference to GR1WHG_TYP
+      apartmentSurfaceArea:
+        type: number
+        maxLength: 21
+        description: Surface area of the apartment.
+      floorSpaceTerrace:
+        type: number
+        maxLength: 21
+        description: Net floor space of the apartment.
+      yearOfConstruction:
+        type: integer
+        maxLength: 4
+        description: Year of construction of the property.
+      condominiumOwnershipRate:
+        type: string
+        maxLength: 30
+        description: Value of a share / co-ownership share of the condominium ownership.
+      floor:
+        type: integer
+        maxLength: 4
+        description: Number of floors.
+      floorTotal:
+        type: integer
+        maxLength: 4
+        description: Total number of floors.
+      wetRooms:
+        type: integer
+        maxLength: 4
+        description: Number of wet rooms.
+      garages:
+        type: integer
+        maxLength: 4
+        description: Number of car garages.
+      indoorParkingSpaces:
+        type: integer
+        maxLength: 4
+        description: Number of indoor parking spaces.
+      outdoorParkingSpaces:
+        type: integer
+        maxLength: 4
+        description: Number of outdoor parking spaces.
+      apartments:
+        type: integer
+        maxLength: 4
+        description: Number of apartments in the building.
+      toilets:
+        type: integer
+        maxLength: 2
+        description: Number of separate toilets in the apartment.
+      easementType:
+        type: integer
+        maxLength: 4
+        description: Property type code according to KR_BERAT_OBJ.GR1DIENSTB_TYP -->
+          Reference to GR1DIENSTB_TYP
+      easement:
+        type: string
+        maxLength: 50
+        description: Designation of the easement.
+      buildingRight:
+        type: string
+        maxLength: 1
+        description: Building right (Yes/No).
+      valuationType:
+        type: integer
+        maxLength: 4
+        description: Property type code according to GR_GBDE.GR_GBDE_QLT_CD --> Reference
+          to GR1BEW_TYP
+      loftConversion:
+        type: string
+        maxLength: 1
+        description: Loft conversion is possible (Yes/No).
+      luxuryProperty:
+        type: string
+        maxLength: 1
+        description: Is a luxury property (Yes/No).
+      situation:
+        type: integer
+        maxLength: 4
+        description: Assessment type code according to GR_GBDE.GR_BEW_TYP_CD --> Reference
+          to GR1BEW_TYP
+      renovated:
+        type: string
+        format: date
+        description: Date when the apartment has last been renovated.
+      buildingCondition:
+        type: integer
+        maxLength: 4
+        description: Building condition code according to GR_GBDE.GBDE_ZUSTAND_CD
+          --> Reference to GR1GBDE_ZUSTAND
+      apartmentCondition:
+        type: integer
+        maxLength: 4
+        description: Apartment condition condition code according to GR_GBDE.GBDE_ZUSTAND_CDWHG
+          --> Reference to GR1GBDE_ZUSTAND
+      minergieType:
+        type: integer
+        maxLength: 4
+        description: Apartment condition condition code according to GR_GBDE.GR_MINENE_TYP_CD
+          --> Reference to GR1MINENE_TYP
+      locationAssignment:
+        type: integer
+        maxLength: 4
+        description: Location assignment code according to GR_LAGE.GR_LAGE_ZUW_CD
+          --> Reference to GR1LAGE_ZUW
+      kitchen:
+        type: integer
+        maxLength: 4
+        description: 'Fit-out standard of the kitchen --> Reference to GR1KUECHE          '
+      legalTransaction:
+        type: integer
+        maxLength: 4
+        description: Type of legal transaction code according to GR_STAMM.GR_RGF_ART_CD
+          --> Reference to GR1RGF_ART
+      ccDefinition:
+        type: integer
+        maxLength: 4
+        description: Type of legal transaction code according to GR_STAMM.GR_DEFI_ZGB_CD
+          --> Reference to GR1DEFI_ZGB
+      landRegCondOwnNo1:
+        type: string
+        maxLength: 15
+        description: First part of the land register number.
+      landRegCondOwnNo2:
+        type: string
+        maxLength: 15
+        description: Second part of the land register number.
+      landRegCondOwnNo3:
+        type: string
+        maxLength: 15
+        description: Third part of the land register number.
+      marketValue:
+        type: number
+        maxLength: 21
+        description: External appraisal - market value.
+      marketValueDate:
+        type: string
+        format: date
+        description: Date of the appraisal.
+      lendingBasis:
+        type: number
+        maxLength: 21
+        description: Final lending basis.
+      lendingBasisDate:
+        type: string
+        format: date
+        description: Date of the lending basis.
+      appraisalType:
+        type: integer
+        maxLength: 4
+        description: Type of appraisal code according to KR_BERAT_OBJ_STZ.KR_STZ_ART_CD
+          --> Reference to KR1STZ_ART
+      appraisalAssessment:
+        type: integer
+        maxLength: 4
+        description: Assessment of the appraisal code according to KR_BERAT_OBJ_STZ.KR_STZ_BEUR_CD
+          --> Reference to KR1STZ_BEUR
+      duplex:
+        type: string
+        maxLength: 1
+        description: Duplex (Yes/No).
+  securityItem:
+    type: object
+    required:
+    - collateralType
+    - collateralSubtype
+    - marketValue
+    properties:
+      collateralType:
+        type: integer
+        maxLength: 4
+        description: Collateral type according to KR1DECK_ART.DECK_ART_CD.
+      collateralSubtype:
+        type: integer
+        maxLength: 4
+        description: Subtype of the collateral according to KR1DECK_SUB_ART.DECK_SUB_ART_CD.
+      marketValue:
+        type: number
+        maxLength: 21
+        description: Market value of the security.
+      nominalValue:
+        type: number
+        maxLength: 21
+        description: Total value / nominal value in foreign currency.
+      collateralLimit:
+        type: number
+        maxLength: 21
+        description: Collateral limit in foreign currency.
+      necessaryCollateral:
+        type: number
+        maxLength: 21
+        description: Necessary collateral in foreign currency.
+  amortisation:
+    type: object
+    required:
+    - amortisationType
+    properties:
+      amortisationType:
+        type: integer
+        maxLength: 4
+        description: Repayment type according to KR1RUECK_ART.KR_RUECK_ART_CD.
+      instalment:
+        type: number
+        maxLength: 21
+        description: Instalment in foreign currency.
+      remainingAmount:
+        type: number
+        maxLength: 21
+        description: Remaining amount in foreign currency.
+      dueDate:
+        type: string
+        format: date
+        description: Date of first or next due repayment.
+      periodicity:
+        type: integer
+        maxLength: 4
+        description: Periodicity according to AL1PERI_EINH.PERI_EINH_CD.
+  financing:
+    type: object
+    required:
+    - assetsType
+    - amount
+    properties:
+      assetsType:
+        type: integer
+        maxLength: 4
+        description: Assets type according to KD1VERMA.VERM_ART_CD.
+      amount:
+        type: number
+        maxLength: 21
+        description: Amount of equity capital.
+  engagement:
+    type: object
+    required:
+    - engagementType
+    - amount
+    properties:
+      engagementType:
+        type: integer
+        maxLength: 4
+        description: Engagement type according to KD1VERPA.VERPF_ART_CD.
+      amount:
+        type: number
+        maxLength: 21
+        description: Amount of equity capital.
+  pricing:
+    type: object
+    required:
+    - product
+    - startDate
+    - partialAmount
+    - deviationNumberManual
+    - relativeDeviationCodeManual
+    - pricingDate
+    properties:
+      product:
+        type: integer
+        maxLength: 5
+        description: Product tariff according to KR1PROD_TARIF.KR_PROD_TARIF_CD.
+      startDate:
+        type: string
+        format: date
+        description: Start date (inclusive) of the term.
+      partialAmount:
+        type: number
+        maxLength: 21
+        description: Partial amount of the credit limit.
+      percentage:
+        type: number
+        maxLength: 11
+        description: Interest rate / total tariff.
+      deviationNumber:
+        type: integer
+        maxLength: 1
+        description: ABW_NR.
+      reasonForDeviation:
+        type: integer
+        maxLength: 4
+        description: Reason for deviation according to AL1REL_ABW.REL_ABW_CD
+      account-number:
+        type: string
+        maxLength: 20
+        description: External display of account number.
+      formOfUse:
+        type: integer
+        maxLength: 4
+        description: Form of use of the loan advisory according to KB1NUTZ_FORM_KT.KB_NUTZ_FORM_KT_CD.
+      period:
+        type: integer
+        maxLength: 4
+        description: Unit of the period according to AL1PERI_EINH.PERI_EINH_CD.
+      dayCountConvention:
+        type: integer
+        maxLength: 2
+        description: Day-count convention for calculating interest days according
+          to AL1ZSUS.ZINSUSANZ.
+      relativePercentage:
+        type: number
+        maxLength: 11
+        description: Relative percentage / deviation rate.
+      deviationNumberManual:
+        type: integer
+        maxLength: 1
+        description: ABW_NR_MAN
+      relativeDeviationCodeManual:
+        type: integer
+        maxLength: 4
+        description: REL_ABW_CD_MAN according to AL1REL_ABW.REL_ABW_CD_MAN
+      pricingDate:
+        type: string
+        format: date
+        description: Date of taking over the current interest.
+  photo:
+    type: object
+    required:
+    - designation
+    - date
+    - dataObject
+    description: The photo model has not yet been implemented in the web service logic.
+      Data provided in the JSON file is rejected by the web service and not saved
+      in the database.
+    properties:
+      designation:
+        type: string
+        maxLength: 80
+        description: Designation of the image file.
+      date:
+        type: string
+        format: date
+        description: Date of photo.
+      dataObject:
+        type: string
+        format: byte
+        description: Photo object, base64-encoded JPG file.
+  accountDataItem:
+    type: object
+    required:
+    - number
+    - type
+    - category
+    - currency
+    - balance
+    - availableAmount
+    - consolidatedLimit
+    - loanAmount
+    properties:
+      number:
+        type: string
+        maxLength: 20
+        description: Edited account number
+        example: 500.001.123
+      type:
+        type: string
+        maxLength: 15
+        example: Privatkonto
+      category:
+        type: string
+        maxLength: 320
+        example: Privatkonto
+      currency:
+        type: string
+        maxLength: 4
+        example: CHF
+      balance:
+        type: number
+        format: double
+        example: 100000
+      availableAmount:
+        type: number
+        format: double
+        example: 345000
+      consolidatedLimit:
+        type: number
+        format: double
+        example: 345000
+      loanAmount:
+        type: number
+        format: double
+        example: 20000
+  accountTariffsDataItem:
+    type: object
+    required:
+    - AnwCd
+    - BegDatLfz
+    - Betrag
+    - BetragBis
+    - BetragVon
+    - BisDat
+    - EndDatLfz
+    - KdTarifCd
+    - KdTarifNr
+    - KtLnr
+    - PreisSatzBemLfz
+    - Satz
+    - TreeResCd
+    - VonDat
+    properties:
+      AnwCd:
+        type: string
+        description: Application Code of a finnova tariff
+        example: ZISO
+      BegDatLfz:
+        type: string
+        example: '2012-08-01'
+      Betrag:
+        type: number
+        example: 0
+      BetragBis:
+        type: number
+        example: -9999999999999.99
+      BetragVon:
+        type: number
+        example: 0
+      BisDat:
+        type: string
+        format: date
+        example: '2020-07-31'
+      EndDatLfz:
+        type: string
+        format: date
+        example: '2020-07-31'
+      KdTarifCd:
+        type: number
+        example: 901107101
+      KdTarifNr:
+        type: number
+        format: integer
+        example: 1071
+      KtLnr:
+        type: number
+        format: int64
+        example: 1009335
+      PreisSatzBemLfz:
+        type: number
+        format: float
+        example: 12
+      Satz:
+        type: number
+        format: float
+        example: 10
+      TreeResCd:
+        type: number
+        format: int64
+        example: 901107101
+      VonDat:
+        type: string
+        format: date
+        example: '2017-05-01'
+  clientDataItem:
+    type: object
+    required:
+    - id
+    - customerNumber
+    - editedCustomerNumber
+    - createDate
+    - birthDate
+    - openedDate
+    - closedDate
+    - maritalStatusDate
+    - PartnerDate
+    - firstName
+    - lastName
+    - name
+    - designation
+    - fullDesignation
+    - salutation
+    - firstNamePartner
+    - lastNamePartner
+    - birthDatePartner
+    - salutationPartner
+    - nationalityPartner
+    - nationalityPartner2nd
+    - maritalStatusPartner
+    - titlePartner
+    - language
+    - languageIso
+    - maritalStatus
+    - category
+    - segment
+    - nationality
+    - nationality2nd
+    - title
+    - clientStatus
+    properties:
+      id:
+        type: integer
+        format: int64
+        maxLength: 22
+        description: KD_ADR_LNR
+        example: 10196
+      customerNumber:
+        type: integer
+        format: int64
+        maxLength: 22
+        description: KD_LNR
+        example: 550001
+      editedCustomerNumber:
+        type: string
+        maxLength: 35
+        description: EDIT_KD_NR
+        example: 550.001
+      createDate:
+        type: string
+        format: date
+        description: ISO 8601
+        example: 2017-07-04 14:56:23 UTC
+      birthDate:
+        type: string
+        format: date
+        description: ISO 8601
+        example: 2017-07-04 14:56:23 UTC
+      openedDate:
+        type: string
+        format: date
+        description: ISO 8601
+        example: 2017-07-04 14:56:23 UTC
+      closedDate:
+        type: string
+        format: date
+        description: ISO 8601
+        example: 2017-07-04 14:56:23 UTC
+      maritalStatusDate:
+        type: string
+        format: date
+        description: ISO 8601
+        example: 2017-07-04 14:56:23 UTC
+      PartnerDate:
+        type: string
+        format: date
+        description: ISO 8601
+        example: 2017-07-04 14:56:23 UTC
+      firstName:
+        type: string
+        maxLength: 35
+      lastName:
+        type: string
+        maxLength: 35
+      name:
+        type: string
+        maxLength: 35
+      designation:
+        type: string
+        maxLength: 35
+      fullDesignation:
+        type: string
+        maxLength: 35
+      salutation:
+        type: string
+        maxLength: 35
+        description: Key to code-table group customerSalutation
+        example: customerSalutation-1
+      firstNamePartner:
+        type: string
+        maxLength: 35
+      lastNamePartner:
+        type: string
+        maxLength: 35
+      birthDatePartner:
+        type: string
+        format: date
+        description: ISO 8601
+        example: 2017-07-04 14:56:23 UTC
+      salutationPartner:
+        type: string
+        maxLength: 35
+      nationalityPartner:
+        type: string
+        maxLength: 35
+        description: Key to code-table group country
+        example: country-1
+      nationalityPartner2nd:
+        type: string
+        maxLength: 35
+        description: Key to code-table group country
+        example: country-1
+      maritalStatusPartner:
+        type: string
+        maxLength: 35
+        description: Key to code-table group customerMaritalStatus
+        example: customerMaritalStatus-2
+      titlePartner:
+        type: string
+        maxLength: 35
+      language:
+        type: string
+        maxLength: 35
+        description: Key to code-table group language
+        example: language-1
+      languageIso:
+        type: string
+        maxLength: 35
+        example: de
+      maritalStatus:
+        type: string
+        maxLength: 35
+        description: Key to code-table group customerMaritalStatus
+        example: customerMaritalStatus-2
+      category:
+        type: string
+        maxLength: 35
+        description: Key to code-table group customerCategory
+        example: customerCategory-10
+      segment:
+        type: string
+        maxLength: 35
+        description: Key to code-table group customerSegment
+        example: customerSegment-2
+      nationality:
+        type: string
+        maxLength: 35
+        description: Key to code-table group country
+        example: country-1
+      nationality2nd:
+        type: string
+        maxLength: 35
+        description: Key to code-table group language
+        example: language-1
+      title:
+        type: string
+        maxLength: 35
+      clientStatus:
+        type: integer
+        format: int64
+        maxLength: 22
+        example: 0
+  addressDataItem:
+    type: object
+    required:
+    - id
+    - clientNumber
+    - addressNumber
+    - salutation
+    - receiverReference
+    - street
+    - poBox
+    - zipCode
+    - place
+    - country
+    properties:
+      id:
+        description: Client number (KD_LNR) - Address number (KD_ADR_LNR)
+        type: string
+        maxLength: 35
+        example: 123456-11
+      clientNumber:
+        description: Client number (KD_NR)
+        type: integer
+        example: 501055
+      addressNumber:
+        description: Address number (KD_ADR_LNR)
+        type: integer
+        example: 7891234
+      salutation:
+        type: string
+        maxLength: 35
+        example: Herr
+      receiverReference:
+        type: string
+        maxLength: 35
+        example: z.Hd. Frau Muster
+      street:
+        type: string
+        maxLength: 35
+        example: Mustergasse 178
+      poBox:
+        type: string
+        maxLength: 35
+        example: Postfach 231
+      zipCode:
+        type: string
+        maxLength: 35
+        example: 6440
+      place:
+        type: string
+        maxLength: 35
+        example: Brunnen
+      country:
+        type: string
+        maxLength: 35
+        example: DE
+  etpDataItem:
+    type: object
+    required:
+    - id
+    - active
+    - advisor
+    - amount
+    - classification
+    - comment
+    - criterion
+    - date
+    - decisionMaker
+    - precentage
+    - text
+    - toAdjustUntill
+    - typ
+    - year
+    properties:
+      id:
+        description: ETP number (KR_ETP_NUTZ_LNR)
+        type: integer
+        maxLength: 35
+        example: 35090256661875
+      active:
+        description: ETP active/not active
+        type: integer
+        example: 0
+      advisor:
+        description: Loan Advisor
+        type: integer
+        example: 2000301
+      amount:
+        type: integer
+        example: 10000
+      classification:
+        type: integer
+        example: 10
+      comment:
+        type: string
+        example: ETP Kommentar
+      criterion:
+        type: integer
+        example: 20
+      date:
+        type: string
+        example: '2007-08-20'
+      decisionMaker:
+        type: integer
+        example: 2001386
+      loanAdvisory:
+        description: KR or KB (KR_ETP_KB_KR_CD)
+        type: integer
+        example: 0
+      precentage:
+        type: integer
+        example: 10
+      text:
+        type: string
+        example: ETP Text/Begruendung
+      toAdjustUntill:
+        type: string
+        example: '2007-08-20'
+      typ:
+        type: integer
+        example: 1
+      year:
+        type: integer
+        example: 2012
+  loanOrderDataItem:
+    type: object
+    properties:
+      orderNumber:
+        description: Order number (AUF_LNR)
+        type: integer
+        maxLength: 35
+        example: 40233232950831
+      collateralSubtype:
+        type: integer
+        example: 3800
+      contractLimitForeignCcy:
+        type: integer
+        example: 100000
+      contractLimitReportingCcy:
+        type: integer
+        example: 1000
+      increaseReduction:
+        type: integer
+        example: 1010
+      increaseReductionForeignCcy:
+        type: integer
+        example: 1000
+      increaseReductionReportingCcy:
+        type: integer
+        example: 1000
+      insuranceCompany:
+        type: string
+        example: Zurich
+      insuranceStartDate:
+        type: string
+        example: '2007-08-20'
+      laonOldForeignCcy:
+        type: integer
+        example: 105500
+      legalRelationship:
+        type: integer
+        example: 1000
+      loanOldReportingCcy:
+        type: integer
+        example: 105500
+      notificatonDate:
+        type: string
+        example: '2007-08-20'
+      phase:
+        type: integer
+        maxLength: 4
+        example: 1400
+      phaseNumber:
+        type: integer
+        example: DE
+      policesDate:
+        type: string
+        example: '2007-08-20'
+      policesNumber:
+        type: integer
+        example: 123.567.000
+      position:
+        type: integer
+        example: 40233246650893
+      positionType:
+        type: integer
+        maxLength: 4
+        example: 1010
+      product:
+        type: integer
+        maxLength: 4
+        example: 3011
+      repurchaseValueAsAt:
+        type: string
+        example: '2007-08-20'
+      valueAsAt:
+        type: string
+        example: '2007-08-20'
+  realEstateDataItem:
+    type: object
+    properties:
+      realEstateNumber:
+        description: Real estate number (GR_LNR)
+        type: integer
+        maxLength: 35
+        example: 34365587299515
+      Wohnungszustand:
+        type: integer
+        example: 1
+      area:
+        type: integer
+        example: 10000
+      buildingCondition:
+        type: integer
+        example: 3
+      condominiumOwnershipRate:
+        type: integer
+        example: 2
+      constructionConcept:
+        type: integer
+        example: 1
+      constructionQuality:
+        type: integer
+        example: 1
+      cubicVolume:
+        type: integer
+        example: 4500
+      developmentStatus:
+        type: integer
+        example: 2
+      effectiveAt:
+        type: string
+        example: '2007-08-20'
+      fotoDate:
+        type: string
+        example: '2007-08-20'
+      fotoDesignation:
+        type: string
+        example: Front.jpg
+      fotoObject:
+        type: object
+        example: "/9j/4AAQSkZJRgABAgEAYABgAAD/7RguUGhvdG9zaG9wIDMuMAA4QklNA+0KUmVz
+          b2x1dGlvbgAAAAAQAGAAAAABAAEAYAAAAAEAAThCSU0EDRhGWCBHbG9iYWwgTGln aHRpbmcgQW5nbGUAAAAABAAAAHg4QklNBBkSRlggR2xvYmFsIEFsdGl0dWRlAAAA
+          AAQAAAAeOEJJTQPzC1ByaW50IEZsYWdzAAAACQAAAAAAAAAAAQA4QklNBAoOQ29w eXJpZ2h0IEZsYWcAAAAAAQAAOEJJTScQFEphcGFuZXNlIFByaW50IEZsYWdzAAAA
+          AAoAAQAAAAAAAAACOEJJTQP1F0NvbG9yIEhhbGZ0b25lIFNldHRpbmdzAAAASAAv ZmYAAQBsZmYABgAAAAAAAQAvZmYAAQChmZoABgAAAAAAAQAyAAAAAQBaAAAABgAA
+          AAAAAQA1AAAAAQAtAAAABgAAAAAAAThCSU0D+BdDb2xvciBUcmFuc2ZlciBTZXR0 aW5ncwAAAHAAAP////////////////////////////8D6AAAAAD/////////////
+          ////////////////A+gAAAAA/////////////////////////////wPoAAAAAP// //////////////////////////8D6AAAOEJJTQQIBkd1aWRlcwAAAAAQAAAAAQAA
+          AkAAAAJAAAAAADhCSU0EHg1VUkwgb3ZlcnJpZGVzAAAABAAAAAA4QklNBBoGU2xp Y2VzAAAAAHUAAAAGAAAAAAAAAAAAAAJYAAADIAAAAAoAVQBuAHQAaQB0AGwAZQBk
+          AC0AMQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAADIAAAAlgAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOEJJTQQREUlDQyBVbnRhZ2dl
+          ZCBGbGFnAAAAAQEAOEJJTQQUF0xheWVyIElEIEdlbmVyYXRvciBCYXNlAAAABAAA AAI4QklNBAwVTmV3IFdpbmRvd3MgVGh1bWJuYWlsAAAUhgAAAAEAAABwAAAAVAAA
+          AVAAAG5AAAAUagAYAAH/2P/gABBKRklGAAECAQBIAEgAAP/uAA5BZG9iZQBkgAAA AAH/2wCEAAwICAgJCAwJCQwRCwoLERUPDAwPFRgTExUTExgRDAwMDAwMEQwMDAwM
+          DAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwBDQsLDQ4NEA4OEBQODg4UFA4ODg4UEQwM DAwMEREMDAwMDAwRDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA=="
+      groundType:
+        type: integer
+        example: 2
+      insuranceNumber:
+        type: integer
+        example: 123456
+      investmentAmount:
+        type: integer
+        example: 10000
+      kitchen:
+        type: integer
+        example: 2
+      landRegistryPlace:
+        type: string
+        example: Lenzburg
+      legalTransaction:
+        type: integer
+        example: 2
+      livingSpaceNet:
+        type: integer
+        example: 200
+      locationAssessment:
+        type: integer
+        example: 2
+      loftConversion:
+        type: integer
+        example: 1
+      luxuryObject:
+        type: integer
+        example: 1
+      minergie:
+        type: integer
+        example: 1
+      numberOfRooms:
+        type: integer
+        example: 2
+      numberOfRoomsSelfContainedUnit:
+        type: integer
+        example: 4
+      numberOfToilets:
+        type: integer
+        example: 2
+      numberOfWetRooms:
+        type: integer
+        example: 2
+      numberOfgarages:
+        type: integer
+        example: 5
+      numberOfindoorParkingSpaces:
+        type: integer
+        example: 5
+      numberOfoutdoorParkingSpaces:
+        type: integer
+        example: 5
+      ownershipRatio:
+        type: integer
+        example: 1
+      place:
+        type: string
+        example: Lenzburg
+      postCode:
+        type: integer
+        example: 5600
+      propertyType:
+        type: integer
+        example: 3
+      purchasePrice:
+        type: integer
+        example: 100000
+      purchasePriceAsAt:
+        type: string
+        example: '2007-08-20'
+      renovated:
+        type: integer
+        example: 1
+      situation:
+        type: integer
+        example: 2
+      sourceCubicVolume:
+        type: integer
+        example: 1
+      standardOfFinish:
+        type: integer
+        example: 3
+      street:
+        type: string
+        example: Dorfstrasse 15
+      terraceSurface:
+        type: integer
+        example: 20
+      totalInvestmentAmount:
+        type: integer
+        example: 100000
+      valuationType:
+        type: integer
+        example: 1
+      yearOfConstruction:
+        type: string
+        example: '1995'
+host: bsaengine.valacr.fil.finnova.com
+basePath: "/api/v1/"
