@@ -14,7 +14,6 @@ apply plugin: 'org.springframework.boot'
 
 jar {
     baseName = 'swagger-spring-boot'
-    version =  '0.1.0'
 }
 
 repositories {
