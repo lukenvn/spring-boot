@@ -23,7 +23,8 @@ function getLinks(callback) {
 }
 function buildSystem(apis,accessToken) {
     const ui = SwaggerUIBundle({
-        urls: apis,
+        url: 'http://localhost:6969/api-doc/fil-bsa-axon-loan-advisory-0.0.8.yaml',
+        // urls: apis,
         dom_id: '#swagger-ui',
         deepLinking: true,
         presets: [
@@ -34,10 +35,10 @@ function buildSystem(apis,accessToken) {
             SwaggerUIBundle.plugins.DownloadUrl
         ],
         layout: "StandaloneLayout",
-        requestInterceptor: function(request) {
-            request.headers.Authorization = "Bearer " + accessToken;
-            return request;
-        }
+        // requestInterceptor: function(request) {
+        //     request.headers.Authorization = "Bearer " + accessToken;
+        //     return request;
+        // }
     });
     window.ui = ui
 
